@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="row justify-content-center">
-      <button type="button" id="deleteButton" class="btn btn-primary d-flex align-self-end pointer" v-if="blog.creator.email === state.user.email" @click="editBlog(blog._id)">
+      <button type="button" id="deleteButton" class="btn btn-primary d-flex align-self-end pointer" v-if="state.user.email === state.user.email" @click="editBlog(blog._id)">
         <i class="fas fa-edit"></i>
       </button>
       <div class="col d-flex-justify-content-center p-3">
@@ -33,7 +33,7 @@
             v-model="state.newComment.body"
           />
         </div>
-        <button type="submit" class="btn btn-primary" @click="createComment()" v-if="state.user.isAuthenticated">
+        <button type="submit" class="btn btn-primary" v-if="state.user.isAuthenticated">
           Create Comment
         </button>
       </form>
@@ -48,14 +48,13 @@
 import { computed, reactive, onMounted } from 'vue'
 import { AppState } from '../AppState'
 import { blogsService } from '../services/BlogsService'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import comment from '../components/Comment'
 
 export default {
   name: 'BlogDetails',
   setup() {
     const route = useRoute()
-    const router = useRouter()
     const state = reactive({
       blog: computed(() => AppState.activeBlog),
       comments: computed(() => AppState.comments),
@@ -70,8 +69,9 @@ export default {
       route,
       state,
       async createComment() {
-        const commentId = await blogsService.createComment(state.newComment)
-        router.push({ name: 'BlogDetailsPage', params: { id: commentId } })
+        state.newComment.blog = state.blog
+        state.newComment.user = state.user
+        await blogsService.createComment(state.newComment)
         state.newComment = {}
       }
     }

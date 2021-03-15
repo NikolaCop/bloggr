@@ -1,8 +1,8 @@
 <template>
   <div class="container-fluid">
     <div class="row p-3">
-      <span class="badge badge-light" id="commentCard">'
-        <button type="button" id="deleteButton" class="btn btn-danger d-flex align-self-end pointer" v-if="blog.creator.email === state.user.email" @click="deleteComment(comment._id)">
+      <span class="badge badge-light" id="commentCard">
+        <button type="button" id="deleteButton" class="btn btn-danger d-flex align-self-end pointer" v-if="state.user.email === state.user.email" @click="deleteComment(comment._id)">
           <i class="fas fa-ban"></i>
         </button>
         <img class="p-3" id="image" :src="comment.creator.picture" alt="">
