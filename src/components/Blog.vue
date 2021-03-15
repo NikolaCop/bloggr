@@ -1,7 +1,7 @@
 <template>
   <div class="col-4 p-2">
-    <div class="card p-4" style="width: 25rem;" id="blogCard" v-if="state.user.email">
-      <button type="button" id="deleteButton" class="btn btn-danger d-flex align-self-end pointer" v-if="state.user.email == state.user.email" @click="deleteBlog(blog._id)">
+    <div class="card p-4" style="width: 25rem;" id="blogCard" v-if="blog.creator">
+      <button type="button" id="deleteButton" class="btn btn-danger d-flex align-self-end pointer" v-if="blog.creator.email == state.user.email" @click="deleteBlog(blog._id)">
         <i class="fas fa-ban"></i>
       </button>
       <h3 class="text-center p-3" id="content">

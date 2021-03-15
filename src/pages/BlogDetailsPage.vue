@@ -9,7 +9,7 @@
           <h1 class="p-3" id="content">
             <b> {{ state.blog.title }} </b>
           </h1>
-          <div v-if="state.blog.creator.picture">
+          <div v-if="state.blog.creator">
             <img :src="state.blog.creator.picture" id="image" class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">
             <p class="p-4"><b>By:</b> <i>{{ state.blog.creator.name }}</i> </p>
           </div>
@@ -61,9 +61,9 @@ export default {
       newComment: {},
       user: computed(() => AppState.user)
     })
-    onMounted(() => {
-      blogsService.getBlogs(route.params.id)
-      blogsService.getComments(route.params.id)
+    onMounted(async() => {
+      await blogsService.setActiveBlog(route.params.id)
+      await blogsService.getComments(route.params.id)
     })
     return {
       route,
