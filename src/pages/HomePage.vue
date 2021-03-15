@@ -1,8 +1,8 @@
 <template>
   <div class="container=fluid" id="bodyBg">
-    <div class="row p-3">
+    <div class="row p-3 justify-content-center">
       <form class="form-inline" @submit.prevent="createBlog">
-        <div class="form-group">
+        <div class="form-group" v-if="state.user.isAuthenticated">
           <input
             type="text"
             name="title"
@@ -13,7 +13,7 @@
             v-model="state.newBlog.title"
           />
         </div>
-        <div class="form-group">
+        <div class="form-group" v-if="state.user.isAuthenticated">
           <input
             type="text"
             name="body"
@@ -24,12 +24,12 @@
             v-model="state.newBlog.body"
           />
         </div>
-        <button type="submit" class="btn btn-primary" @click="createBlog()">
-          Create Blog
+        <button type="submit" id="plus" class="btn btn-info" @click="createBlog()" v-if="state.user.isAuthenticated">
+          <i class="fas fa-plus"></i>
         </button>
       </form>
     </div>
-    <div class="row p-3">
+    <div class="row p-5">
       <blog v-for="blogData in state.blogs" :key="blogData._id" :blog="blogData" />
     </div>
   </div>
@@ -48,7 +48,8 @@ export default {
     const router = useRouter()
     const state = reactive({
       blogs: computed(() => AppState.blogs),
-      newBlog: {}
+      newBlog: {},
+      user: computed(() => AppState.user)
     })
     onMounted(() => {
       blogsService.getBlogs()
@@ -69,6 +70,24 @@ export default {
 </script>
 
 <style scoped lang="scss">
+#title{
+  border-radius: 50px;
+  border-width: 3px;
+  border-color: rgb(75, 74, 74);
+  font-family: 'Coming Soon', cursive;
+}
+#plus{
+  border-radius: 50px;
+border-width: 3px;
+border-color:rgb(3, 95, 87);
+}
+#body{
+  border-radius: 50px;
+  border-width: 3px;
+  border-color: rgb(75, 74, 74);
+  font-family: 'Coming Soon', cursive;
+}
+
 .home{
   text-align: center;
   user-select: none;
@@ -77,7 +96,7 @@ export default {
     width: 200px;
   }
   #bodyBg{
-  background-image: url('https://media0.giphy.com/media/9JxkPTP3alOykb8PmQ/giphy.gif');
+  background-image: url('https://i.stack.imgur.com/yJedC.jpg');
   background-size: cover;
 }
 }

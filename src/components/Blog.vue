@@ -1,17 +1,17 @@
 <template>
   <div class="col-4 p-2">
-    <div class="card p-5" style="width: 25rem;" id="blogCard">
+    <div class="card p-4" style="width: 25rem;" id="blogCard">
       <button type="button" id="deleteButton" class="btn btn-danger d-flex align-self-end pointer" v-if="state.user.isAuthenticated" @click="deleteBlog(blog._id)">
         <i class="fas fa-ban"></i>
       </button>
-      <h3 class="text-center p-3">
-        {{ blog.title }}
+      <h3 class="text-center p-3" id="content">
+        <b>  {{ blog.title }} </b>
       </h3>
       <p id="author">
         <!-- <b> By: </b> <i> {{ blog.creator.name }} </i> -->
       </p>
       <router-link :to="{name: 'BlogDetailsPage', params: {id: blog._id}}">
-        <button type="button" id="readButton" class="btn btn-success " @click="setActiveBlog(blog._id)">
+        <button type="button" id="readButton" class="btn btn-success p-3" @click="setActiveBlog(blog._id)">
           Read <i class="far fa-play-circle"></i>
         </button>
       </router-link>
@@ -54,20 +54,26 @@ export default {
 #blogCard{
   border-top-left-radius: 50px;
   border-bottom-right-radius: 50px;
-  background-image: url('https://wallpaperaccess.com/full/2578748.jpg');
-  border-color: rgb(158, 137, 250);
+  background-image: url('https://lh3.googleusercontent.com/proxy/FjCInkEk3LoKPDFAoSIDTDWsMo5CZUozQnYuBXOsNnmGiC-dLFGPLYoKCkXzl0kzBCXTHd-2MgI9uhWteBLJZIGfE_qxLcmvzlt3YRNz7OfpjzPW1yDYGx4MPDEVVuSFvDWvCuB9');
+  border-color: rgb(39, 39, 39);
   border-width: 5px;
 }
 #deleteButton{
   border-radius: 50px;
+  border-width: 3px;
+  border-color: rgb(65, 65, 65);
 }
 #readButton{
     border-top-left-radius: 50px;
   border-bottom-right-radius: 50px;
   border-width: 3px;
   border-color: green;
+  font-family: 'Coming Soon', cursive;
 }
 #author{
   font-size: smaller;
+}
+#content{
+font-family: 'Coming Soon', cursive;
 }
 </style>

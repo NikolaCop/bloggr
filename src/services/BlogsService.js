@@ -1,10 +1,10 @@
 import { AppState } from '../AppState'
-import { api } from './AxiosService'
+import { sandboxApi } from './AxiosService'
 
 class BlogsService {
   async getBlogs() {
     try {
-      const res = await api.get('blogs')
+      const res = await sandboxApi.get('blogs')
       AppState.blogs = res.data
     } catch (error) {
       console.error(error)
@@ -13,7 +13,7 @@ class BlogsService {
 
   async getComments(id) {
     try {
-      const res = await api.get('blogs/' + id + '/comments')
+      const res = await sandboxApi.get('blogs/' + id + '/comments')
       AppState.comments = res.data
     } catch (error) {
       console.error(error)
@@ -22,7 +22,7 @@ class BlogsService {
 
   async setActiveBlog(_id) {
     try {
-      const res = await api.get('blogs/' + _id)
+      const res = await sandboxApi.get('blogs/' + _id)
       AppState.activeBlog = res.data
     } catch (error) {
       console.error(error)
@@ -31,7 +31,7 @@ class BlogsService {
 
   async createBlog(rawBlog) {
     try {
-      const res = await api.post('blogs/', rawBlog)
+      const res = await sandboxApi.post('blogs/', rawBlog)
       AppState.blogs.push(res.data)
       return res.data._id
     } catch (error) {
@@ -39,9 +39,42 @@ class BlogsService {
     }
   }
 
+  async createComment(rawComment) {
+    try {
+      const res = await sandboxApi.post('comments/', rawComment)
+      AppState.comments.push(res.data)
+      return res.data._id
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async deleteComment(_id) {
+    await sandboxApi.delete('comments/' + _id)
+    this.getComments()
+  }
+
   async deleteBlog(_id) {
-    await api.delete('blogs/' + _id)
+    await sandboxApi.delete('blogs/' + _id)
     this.getBlogs()
+  }
+
+  async editBlog(_id) {
+    const blog = AppState.blogs.find(b => b._id === _id)
+    try {
+      await sandboxApi.put('blogs/' + _id, blog)
+    } catch (error) {
+
+    }
+  }
+
+  async editComment(_id) {
+    const comment = AppState.comments.find(c => c._id === _id)
+    try {
+      await sandboxApi.put('comments/' + _id, comment)
+    } catch (error) {
+
+    }
   }
 }
 
