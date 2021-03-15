@@ -1,7 +1,7 @@
 <template>
   <div class="col-4 p-2">
-    <div class="card p-4" style="width: 25rem;" id="blogCard">
-      <button type="button" id="deleteButton" class="btn btn-danger d-flex align-self-end pointer" v-if="state.user.isAuthenticated" @click="deleteBlog(blog._id)">
+    <div class="card p-4" style="width: 25rem;" id="blogCard" v-if="blog.creator.email">
+      <button type="button" id="deleteButton" class="btn btn-danger d-flex align-self-end pointer" v-if="blog.creator.email == state.user.email" @click="deleteBlog(blog._id)">
         <i class="fas fa-ban"></i>
       </button>
       <h3 class="text-center p-3" id="content">
@@ -27,11 +27,12 @@ import { computed, reactive } from 'vue'
 export default {
   name: 'Blog',
   props: {
-    blog: Object
+    blog: { type: Object, required: true }
   },
   setup(props) {
     const router = useRouter()
     const state = reactive({
+      blogs: computed(() => AppState.blogs),
       user: computed(() => AppState.user)
     })
     return {
@@ -54,7 +55,7 @@ export default {
 #blogCard{
   border-top-left-radius: 50px;
   border-bottom-right-radius: 50px;
-  background-image: url('https://lh3.googleusercontent.com/proxy/FjCInkEk3LoKPDFAoSIDTDWsMo5CZUozQnYuBXOsNnmGiC-dLFGPLYoKCkXzl0kzBCXTHd-2MgI9uhWteBLJZIGfE_qxLcmvzlt3YRNz7OfpjzPW1yDYGx4MPDEVVuSFvDWvCuB9');
+  background-image: url('https://lh3.googleusercontent.com/proxy/Rf_COsOjMfuOEUpbp_YQZQFhaIWO9dV2hYn2E7_zueL8-FMYseyzuAwdn4rOWUlYReLclX7LkXagb7BYSWb7Hi6CgephIKSBHgavfkVx8UyExN33oIuqza9_ptwOnGCkYB7pADA2');
   border-color: rgb(39, 39, 39);
   border-width: 5px;
 }

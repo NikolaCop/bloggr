@@ -2,10 +2,7 @@
   <div class="container-fluid">
     <div class="row p-3">
       <span class="badge badge-light" id="commentCard">'
-        <button type="button" id="deleteButton" class="btn btn-primary d-flex align-self-end pointer" v-if="state.user.isAuthenticated" @click="editBlog(blog._id)">
-          <i class="fas fa-edit"></i>
-        </button>
-        <button type="button" id="deleteButton" class="btn btn-danger d-flex align-self-end pointer" v-if="state.user.isAuthenticated" @click="deleteComment(comment._id)">
+        <button type="button" id="deleteButton" class="btn btn-danger d-flex align-self-end pointer" v-if="blog.creator.email === state.user.email" @click="deleteComment(comment._id)">
           <i class="fas fa-ban"></i>
         </button>
         <img class="p-3" id="image" :src="comment.creator.picture" alt="">
@@ -49,7 +46,7 @@ export default {
   border-top-left-radius: 50px;
   border-top-right-radius: 50px;
   border-bottom-right-radius: 50px;
-  background-image: url('https://lh3.googleusercontent.com/proxy/FjCInkEk3LoKPDFAoSIDTDWsMo5CZUozQnYuBXOsNnmGiC-dLFGPLYoKCkXzl0kzBCXTHd-2MgI9uhWteBLJZIGfE_qxLcmvzlt3YRNz7OfpjzPW1yDYGx4MPDEVVuSFvDWvCuB9');
+  background-image: url('https://lh3.googleusercontent.com/proxy/Rf_COsOjMfuOEUpbp_YQZQFhaIWO9dV2hYn2E7_zueL8-FMYseyzuAwdn4rOWUlYReLclX7LkXagb7BYSWb7Hi6CgephIKSBHgavfkVx8UyExN33oIuqza9_ptwOnGCkYB7pADA2');
   border-color: rgb(34, 34, 34);
   border-width: 10px;
   background-size: cover;

@@ -11,11 +11,11 @@ export const sandboxApi = Axios.create({
 })
 
 export const setBearer = function(bearer) {
+  api.defaults.headers.authorization = bearer
   sandboxApi.defaults.headers.authorization = bearer
-  sandboxApi.defaults.headers.authorization = ''
 }
 
 export const resetBearer = function() {
-  sandboxApi.defaults.headers.authorization = ''
+  api.defaults.headers.authorization = ''
   sandboxApi.defaults.headers.authorization = ''
 }

@@ -1,11 +1,11 @@
 <template>
   <div class="container-fluid">
     <div class="row justify-content-center">
+      <button type="button" id="deleteButton" class="btn btn-primary d-flex align-self-end pointer" v-if="blog.creator.email === state.user.email" @click="editBlog(blog._id)">
+        <i class="fas fa-edit"></i>
+      </button>
       <div class="col d-flex-justify-content-center p-3">
         <span class="badge badge-light" id="blogCard">'
-          <button type="button" id="deleteButton" class="btn btn-primary d-flex align-self-end pointer" v-if="state.user.isAuthenticated" @click="editBlog(blog._id)">
-            <i class="fas fa-edit"></i>
-          </button>
           <h1 class="p-3" id="content">
             <b> {{ state.blog.title }} </b>
           </h1>
@@ -63,7 +63,7 @@ export default {
       user: computed(() => AppState.user)
     })
     onMounted(() => {
-      blogsService.getBlogs(route.params._id)
+      blogsService.getBlogs(route.params.id)
       blogsService.getComments(route.params.id)
     })
     return {
